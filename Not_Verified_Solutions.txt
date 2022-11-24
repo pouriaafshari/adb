@@ -1,0 +1,58 @@
+
+
+*************************
+304 - 305
+*************************
+
+
+
+
+create table fmilymembers
+(
+CUSTOMER NUMBER(6,0),
+FAMILYMEMBERNAME VARCHAR2(6)
+)
+
+/
+
+create or replace function InsertMember
+(
+custid oe.customers.customer_id%type,
+membername familymembers.familymembername%type
+)
+return varchar is 
+val varchar(3);
+tempid oe.customers.customer_id%type;
+begin
+    select customer_id
+    into tempid
+    from oe.customers oc where
+    oc.customer_id = custid;
+    insert into familymembers(customer, FAMILYMEMBERNAME)
+    values (tempid, membername);
+    val :='YES';
+    return val;
+end;
+
+/
+begin
+dbms_output.put_line(InsertMember('142', 'Karina'));
+exception
+    when no_data_found then 
+    dbms_output.put_line('No');
+end;
+/
+
+select * from familymembers;
+
+
+
+
+
+
+**********************
+306
+**********************
+
+
+

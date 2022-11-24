@@ -1,0 +1,105 @@
+
+301
+
+
+declare
+function show_orders
+(firstname oe.customers.cust_first_name%type,
+lastname oe.customers.cust_last_name%type) 
+return number is
+  val number(5);
+begin
+  select count(*)
+  into val
+  from (oe.customers oc right outer join oe.orders oo
+  on oc.customer_id = oo.customer_id)
+  where oc.cust_first_name=firstname
+  and oc.cust_last_name=lastname;
+  
+  return val;
+end;
+
+
+begin
+ dbms_output.put_line(show_orders('Sivaji', 'Landis'));
+end;
+
+
+
+*******************************************
+
+302
+
+
+
+
+create or replace procedure Bday_gender
+(firstname oe.customers.cust_first_name%type,
+lastname oe.customers.cust_last_name%type,
+
+outval1 out oe.customers.date_of_birth%type,
+outval2 out oe.customers.gender%type) 
+is begin
+
+select date_of_birth, gender
+into outval1, outval2
+from oe.customers oc
+where oc.cust_first_name=firstname
+and oc.cust_last_name=lastname;
+  
+end;
+/
+
+declare
+outval1 oe.customers.date_of_birth%type;
+outval2 oe.customers.gender%type;
+begin
+    Bday_gender('Sivaji', 'Landis', outval1, outval2);
+     dbms_output.put_line(outval1|| '  ' ||outval2);
+end;
+
+
+
+************************************************
+
+
+303
+
+
+
+
+
+create or replace procedure Bday_gender
+(firstname oe.customers.cust_first_name%type,
+outval1 out oe.customers.date_of_birth%type,
+outval2 out oe.customers.gender%type) 
+is begin
+
+select date_of_birth, gender
+into outval1, outval2
+from oe.customers oc
+where oc.cust_first_name=firstname;
+  
+end;
+/
+
+declare
+outval1 oe.customers.date_of_birth%type;
+outval2 oe.customers.gender%type;
+begin
+    Bday_gender('Sivaji', outval1, outval2);
+     dbms_output.put_line(outval1|| '  ' ||outval2);
+     
+exception
+    when too_many_rows
+    then dbms_output.put_line('Too Many Rows !!!');
+end;
+
+
+*************************************************************
+
+
+
+
+
+

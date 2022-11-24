@@ -1,0 +1,36 @@
+Use the OE (and HR) schema. (The database kowns then. You can find the figure in the google: oe schema). 
+
+101, 'Write a block that prints the name of the oldest customer.';
+102,'Write a block that prints the record of the customer who has two orders. ';
+103,'Part of the warehouse in Beijingben was destroyed by fire. Write a block that decreases every items quantity in the warehouse by 10. 
+If there are at least 10 of them yu should modify the row, otherwise delete the row.';
+104,'Write a block which prints to the "screen" how many pieces of product were ordered by each customers. ';
+
+
+201,'Write a block with a function declared in it. The function takes two arguments: a customer id and a product id. 
+The function returns the amount the customer has ordered of the product. 
+Call the function for every customer with a last name starting with ''T'' and for every item with less than 500 list price, 
+then print the customer''s name, the product''s name, and the ordered amount to the screen.';
+202,'Write a block with a procedure declared in it. The proceduret gets a number as an argument. 
+The procedure gives back (in out parameter) the sin and the cos of the number. Call the procedure with degrees 0, 15, 30, 45, 60, 75, 90, ..., 360.';
+203,'Use the olympics schema. Write a blokk in which declare a procedure. The procedure gets a continent name and an area and 
+lists to the screen the contries which belong to the continent given in the parameter and which area is less than the area given in the parameter. 
+The blokk calls the procedure. Try it out with more values. ';
+
+301,'Write a block with a function declaration. The function takes a customer name as parameter and returns how many order have been placed by the customer. 
+Call the function inside the block with customer names;
+302,'Write a stored procedure which takes a customer name as parameter and returns (out parameter) the customer''s birth date and gender. (No need to handle exceptions here.)';
+303,'Write a block, that calls the previously defined procedure. Call it in a way that it will raise exception. Examine the results. Extend the block to handle exceptions caused by the select into statement and prints the error.';
+304,'Create a table named familymembers with two attributes: customer table id (foreign key), familymember name. The primary key is the two attribute combined.';
+305,'Write a stored function which inserts a row into the previously created table. The function gets two parameters: a customer id and a family member name. 
+If the insert statement was successful the function returns with the name of the customer. If an exception has been raised 
+(because the given family member name already exists in table for the current customer), the function handles it: write to the screen the customer''s name 
+and the family member''s name, then the function return with NULL.';
+306,'Write a stored procedure, which gets a customer''s name and a family member''s name as parameters. Call the previously created function 
+from the procedure with the parameters. Write the value return by the function to the screen.';
+307,'Write a block that calls the previously created procedure with null value for family member name. Handle the exception and write to the screen 
+that no family member name was given. Within the same block, call the procedure with a customer name that does not exist in the customer table. Handle the exception and write to the screen that no customer has been registered with the given id. Moreover, call the procedure with a customer name that is not unique (that is, more than one customers exist in the customers table with that name), handle the exception in the same way as earlier. Separated exception handlers should be used, one for each case above.';
+308,'Modify the procedure from 502 to handle the exceptions raised in 503 (and only those exceptions).';
+
+
+
