@@ -42,6 +42,66 @@ end;
 
 
 
+************************************
+
+
+[201]
+
+declare
+
+    function karina
+    (c_id oe.orders.customer_id%type,
+     p_id oe.order_items.product_id%type)
+    return number is
+        v number(5);
+    begin
+        select count(*)
+        into v
+        from oe.orders oo
+        inner join oe.order_items oi
+        on oo.order_id = oi.order_id
+        group by oo.customer_id, oi.product_id
+        having oi.product_id = p_id
+        and oo.customer_id = c_id;
+        
+        return v;
+    end;
+
+begin
+
+    for i in 
+    (
+        select distinct oc.cust_first_name, oc.cust_last_name, oc.customer_id
+        from oe.customers oc
+        right outer join
+        oe.orders oo on
+        oc.customer_id = oo.customer_id
+        where oc.cust_last_name like 'T%'
+    )
+    loop
+        for k in 
+        (
+            select pi.product_id, pi.product_name
+            from oe.order_items oi inner join 
+            oe.orders oo on
+            oi.order_id = oo.order_id inner join
+            oe.product_information pi on
+            pi.product_id = oi.product_id
+            where oo.customer_id = i.customer_id
+        )
+        loop
+            dbms_output.put_line
+            (i.cust_first_name || ' ' || i.cust_last_name || ' '
+             || k.product_name || ' ' || karina(i.customer_id, k.product_id));
+        end loop;
+        
+    end loop;
+
+end;
+
+
+
+
 
 *************************
 304 - 305
