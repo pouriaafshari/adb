@@ -1,3 +1,46 @@
+*****************************
+
+[101]
+
+declare 
+  v oe.customers.cust_first_name%type;
+  d oe.customers.date_of_birth%type;
+begin
+    select cust_first_name, date_of_birth
+    into v, d
+    from oe.customers oc
+    order by oc.date_of_birth desc
+    fetch first row with ties;
+    dbms_output.put_line(v || ' ' || d);
+end;
+
+**********************************
+
+[102] !!! The table has problem ... this shows customer names !!!
+
+declare 
+  a oe.customers.cust_first_name%type;
+  b oe.customers.cust_last_name%type;
+begin
+    for i in
+    (
+        select oc.customer_id, count(*)
+        from oe.orders oo left outer join oe.customers oc
+        on oo.customer_id = oc.customer_id
+        group by oc.customer_id
+        having count(*) = 2
+    )    
+    loop
+        select cust_first_name, cust_last_name
+        into a, b
+        from oe.customers oc
+        where oc.customer_id = i.customer_id;
+        dbms_output.put_line(a || ' ' || b);
+    end loop;
+end;
+
+
+
 
 
 *************************
